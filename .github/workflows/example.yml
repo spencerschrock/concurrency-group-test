@@ -1,0 +1,21 @@
+name: example
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}"
+          sleep 300
