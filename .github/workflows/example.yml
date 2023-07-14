@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 permissions:
@@ -17,5 +17,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}"
+          echo "group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}"
           sleep 300
